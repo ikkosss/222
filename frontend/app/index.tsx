@@ -293,6 +293,8 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 20,
     height: 70,
+    borderWidth: 1,
+    borderColor: isDark ? '#333333' : '#eeeeee',
   },
   searchIcon: {
     marginRight: 12,
