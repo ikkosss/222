@@ -209,25 +209,6 @@ export default function MainScreen() {
             </View>
           )}
 
-          {/* Welcome message when no search */}
-          {!searchText && !isLoading && !searchResults.length && (
-            <View style={styles.welcomeContainer}>
-              <Ionicons 
-                name="search" 
-                size={64} 
-                color={isDark ? '#444444' : '#cccccc'} 
-                style={styles.welcomeIcon}
-              />
-              <Text style={styles.welcomeTitle}>UPN - Трекер номеров</Text>
-              <Text style={styles.welcomeSubtitle}>
-                Отслеживайте использование номеров телефонов в различных сервисах
-              </Text>
-              <Text style={styles.welcomeHint}>
-                Начните поиск или используйте навигацию внизу
-              </Text>
-            </View>
-          )}
-
           {/* Centered Search Bar */}
           <View style={styles.searchContainer}>
             <View style={styles.searchBar}>
@@ -255,6 +236,25 @@ export default function MainScreen() {
                   />
                 </TouchableOpacity>
               )}
+            </View>
+            
+            {/* Add buttons under search */}
+            <View style={styles.addButtonsContainer}>
+              <TouchableOpacity
+                style={styles.addButton}
+                onPress={() => router.push('/add-phone')}
+                activeOpacity={0.7}
+              >
+                <Text style={styles.addButtonText}>➕ Добавить новый номер</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity
+                style={styles.addButton}
+                onPress={() => router.push('/add-service')}
+                activeOpacity={0.7}
+              >
+                <Text style={styles.addButtonText}>➕ Добавить новый сервис</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
