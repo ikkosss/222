@@ -189,7 +189,46 @@ export default function MainScreen() {
         style={styles.keyboardView}
       >
         <View style={styles.content}>
-          {/* Search Bar */}
+          {/* Search Results */}
+          {searchResults.length > 0 && (
+            <View style={styles.resultsContainer}>
+              <FlatList
+                data={searchResults}
+                renderItem={renderSearchResult}
+                keyExtractor={(item) => `${item.type}-${item.id}`}
+                style={styles.resultsList}
+                keyboardShouldPersistTaps="handled"
+              />
+            </View>
+          )}
+
+          {/* Loading indicator */}
+          {isLoading && (
+            <View style={styles.loadingContainer}>
+              <Text style={styles.loadingText}>Поиск...</Text>
+            </View>
+          )}
+
+          {/* Welcome message when no search */}
+          {!searchText && !isLoading && !searchResults.length && (
+            <View style={styles.welcomeContainer}>
+              <Ionicons 
+                name="search" 
+                size={64} 
+                color={isDark ? '#444444' : '#cccccc'} 
+                style={styles.welcomeIcon}
+              />
+              <Text style={styles.welcomeTitle}>UPN - Трекер номеров</Text>
+              <Text style={styles.welcomeSubtitle}>
+                Отслеживайте использование номеров телефонов в различных сервисах
+              </Text>
+              <Text style={styles.welcomeHint}>
+                Начните поиск или используйте навигацию внизу
+              </Text>
+            </View>
+          )}
+
+          {/* Centered Search Bar */}
           <View style={styles.searchContainer}>
             <View style={styles.searchBar}>
               <Ionicons 
@@ -218,45 +257,6 @@ export default function MainScreen() {
               )}
             </View>
           </View>
-
-          {/* Search Results */}
-          {searchResults.length > 0 && (
-            <View style={styles.resultsContainer}>
-              <FlatList
-                data={searchResults}
-                renderItem={renderSearchResult}
-                keyExtractor={(item) => `${item.type}-${item.id}`}
-                style={styles.resultsList}
-                keyboardShouldPersistTaps="handled"
-              />
-            </View>
-          )}
-
-          {/* Loading indicator */}
-          {isLoading && (
-            <View style={styles.loadingContainer}>
-              <Text style={styles.loadingText}>Поиск...</Text>
-            </View>
-          )}
-
-          {/* Welcome message when no search */}
-          {!searchText && !isLoading && (
-            <View style={styles.welcomeContainer}>
-              <Ionicons 
-                name="search" 
-                size={64} 
-                color={isDark ? '#444444' : '#cccccc'} 
-                style={styles.welcomeIcon}
-              />
-              <Text style={styles.welcomeTitle}>UPN - Трекер номеров</Text>
-              <Text style={styles.welcomeSubtitle}>
-                Отслеживайте использование номеров телефонов в различных сервисах
-              </Text>
-              <Text style={styles.welcomeHint}>
-                Начните поиск или используйте навигацию внизу
-              </Text>
-            </View>
-          )}
         </View>
 
         <FloatingNavigation currentScreen="search" />
