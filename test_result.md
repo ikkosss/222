@@ -161,8 +161,8 @@ backend:
 
 frontend:
   - task: "Main search screen with Google-style search"
-    implemented: false
-    working: "NA"
+    implemented: true
+    working: true
     file: "app/index.tsx"
     stuck_count: 0
     priority: "high"
@@ -171,10 +171,13 @@ frontend:
         - working: "NA"
           agent: "main"
           comment: "Planning phase - need main search interface"
+        - working: true
+          agent: "main"
+          comment: "Implemented Google-style search with Russian text, debounced search, auto-suggestions. Screenshot confirmed perfect mobile UI."
 
   - task: "Custom floating button navigation"
-    implemented: false
-    working: "NA"
+    implemented: true
+    working: true
     file: "app/_layout.tsx"
     stuck_count: 0
     priority: "high"
@@ -183,10 +186,13 @@ frontend:
         - working: "NA"
           agent: "main"
           comment: "Planning phase - need floating navigation buttons"
+        - working: true
+          agent: "main"
+          comment: "Implemented custom floating navigation with 3 buttons (search/phone/heart). Perfect positioning and active states."
 
   - task: "Dark theme implementation"
-    implemented: false
-    working: "NA"
+    implemented: true
+    working: true
     file: "app/_layout.tsx"
     stuck_count: 0
     priority: "medium"
@@ -195,6 +201,33 @@ frontend:
         - working: "NA"
           agent: "main" 
           comment: "Planning phase - need Material3 DayNight theme"
+        - working: true
+          agent: "main"
+          comment: "Implemented Material3 DayNight theme with proper #121212 dark background and automatic light/dark switching."
+
+  - task: "Phones list screen"
+    implemented: true
+    working: "NA"
+    file: "app/phones.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented phones list with proper CRUD operations, long press context menus."
+
+  - task: "Services grid screen"
+    implemented: true
+    working: "NA"
+    file: "app/services.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented services grid with 5-column layout, logo support, proper navigation."
 
 metadata:
   created_by: "main_agent"
