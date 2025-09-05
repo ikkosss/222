@@ -101,3 +101,98 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Build UPN mobile app - Russian phone number tracking for service bonuses with export/import, image handling, custom navigation, and dark theme"
+
+backend:
+  - task: "Phone number normalization function"
+    implemented: false
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Planning phase - need to implement Russian phone number normalization"
+
+  - task: "Database models for phones, services, operators"
+    implemented: false
+    working: "NA" 
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Planning phase - need MongoDB models for core entities"
+
+  - task: "CRUD APIs for phone/service management"
+    implemented: false
+    working: "NA"
+    file: "server.py" 
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Planning phase - need basic CRUD operations"
+
+frontend:
+  - task: "Main search screen with Google-style search"
+    implemented: false
+    working: "NA"
+    file: "app/index.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Planning phase - need main search interface"
+
+  - task: "Custom floating button navigation"
+    implemented: false
+    working: "NA"
+    file: "app/_layout.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Planning phase - need floating navigation buttons"
+
+  - task: "Dark theme implementation"
+    implemented: false
+    working: "NA"
+    file: "app/_layout.tsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main" 
+          comment: "Planning phase - need Material3 DayNight theme"
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 0
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Phone number normalization function"
+    - "Database models for phones, services, operators"
+    - "CRUD APIs for phone/service management"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+    - agent: "main"
+      message: "Starting UPN app development - Phase 1: Core backend architecture with phone number normalization and database models"
