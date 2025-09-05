@@ -17,7 +17,8 @@
         "backgroundColor": "#000"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.ikkosss.numbers"
+      "package": "com.ikkosss.numbers",
+      "jsEngine": "jsc"
     },
     "web": {
       "bundler": "metro",
