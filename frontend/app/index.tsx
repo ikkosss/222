@@ -305,7 +305,11 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
     marginLeft: 8,
   },
   resultsContainer: {
-    flex: 1,
+    position: 'absolute',
+    top: 80, // Позиция под поисковой строкой
+    left: '15%', // Центрировано как поле поиска
+    right: '15%',
+    bottom: 120, // Отступ от плавающих кнопок
     backgroundColor: isDark ? '#1e1e1e' : '#ffffff',
     borderRadius: 12,
     overflow: 'hidden',
