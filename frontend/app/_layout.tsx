@@ -19,6 +19,9 @@ export default function RootLayout() {
         <Stack.Screen name="index" />
         <Stack.Screen name="phones" />
         <Stack.Screen name="services" />
+        <Stack.Screen name="add-phone" />
+        <Stack.Screen name="add-service" />
+        <Stack.Screen name="add-operator" />
         <Stack.Screen name="phone/[id]" />
         <Stack.Screen name="service/[id]" />
       </Stack>
