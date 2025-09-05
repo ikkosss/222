@@ -238,22 +238,22 @@ export default function MainScreen() {
               )}
             </View>
             
-            {/* Add buttons under search */}
-            <View style={styles.addButtonsContainer}>
+            {/* Add links under search */}
+            <View style={styles.addLinksContainer}>
               <TouchableOpacity
-                style={styles.addButton}
+                style={styles.addLink}
                 onPress={() => router.push('/add-phone')}
                 activeOpacity={0.7}
               >
-                <Text style={styles.addButtonText}>➕ Добавить новый номер</Text>
+                <Text style={styles.addLinkText}>➕ Добавить новый номер</Text>
               </TouchableOpacity>
               
               <TouchableOpacity
-                style={styles.addButton}
+                style={styles.addLink}
                 onPress={() => router.push('/add-service')}
                 activeOpacity={0.7}
               >
-                <Text style={styles.addButtonText}>➕ Добавить новый сервис</Text>
+                <Text style={styles.addLinkText}>➕ Добавить новый сервис</Text>
               </TouchableOpacity>
             </View>
           </View>
