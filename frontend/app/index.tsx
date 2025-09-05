@@ -301,6 +301,7 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
     position: 'absolute',
     width: '100%',
     alignSelf: 'center',
+    paddingHorizontal: 0,
   },
   searchBar: {
     flexDirection: 'row',
@@ -320,6 +321,7 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
     flex: 1,
     fontSize: 16,
     color: isDark ? '#ffffff' : '#333333',
+    height: 32,
   },
   clearButton: {
     marginLeft: 8,
