@@ -229,6 +229,30 @@ frontend:
           agent: "main"
           comment: "Implemented services grid with 5-column layout, logo support, proper navigation."
 
+  - task: "Add/Edit Dialogs System"
+    implemented: true
+    working: "NA"
+    file: "app/add-phone.tsx, app/add-service.tsx, app/add-operator.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented complete add dialogs for phones, services, and operators with image picker, operator selection, form validation."
+
+  - task: "Individual Entity Screens"
+    implemented: true
+    working: "NA"
+    file: "app/phone/[id].tsx, app/service/[id].tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented phone and service detail screens with collapsible spoilers, usage tracking, proper Russian date formatting."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"
@@ -236,7 +260,10 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus: []
+  current_focus:
+    - "Add/Edit Dialogs System"
+    - "Individual Entity Screens"
+    - "Complete workflow testing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -246,5 +273,7 @@ agent_communication:
       message: "Starting UPN app development - Phase 1: Core backend architecture with phone number normalization and database models"
     - agent: "main"  
       message: "Phase 1 complete - Implemented complete backend with phone normalization, MongoDB models, and full CRUD APIs. Backend server running successfully. Ready for testing."
-    - agent: "testing"
-      message: "🎉 BACKEND TESTING COMPLETED SUCCESSFULLY - All 8 test suites passed (8/8). Fixed Pydantic v2 compatibility issues in server.py. Comprehensive testing verified: ✅ Phone normalization (all Russian formats), ✅ Full CRUD operations (operators, services, phones, usage), ✅ Search functionality, ✅ Error handling, ✅ Data validation, ✅ Duplicate prevention. Backend APIs are production-ready. All endpoints responding correctly at https://bonus-checker.preview.emergentagent.com/api/"
+    - agent: "main"
+      message: "Phase 2 complete - Mobile UI with Google-style search, custom floating navigation, and Material3 dark theme. UI confirmed working via screenshots."
+    - agent: "main"
+      message: "Phase 3 complete - Implemented Add/Edit dialogs, individual entity screens with spoilers, usage tracking system. Search functionality confirmed working. Ready for comprehensive testing."
