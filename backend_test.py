@@ -232,7 +232,7 @@ class UPNAPITester:
             
             if response.status_code == 200:
                 service = response.json()
-                service_id = service["id"]
+                service_id = service["_id"]  # Use _id instead of id
                 self.created_ids['services'].append(service_id)
                 self.log(f"✅ Created service: {service['name']} (ID: {service_id})")
             else:
