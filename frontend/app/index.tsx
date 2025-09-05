@@ -278,6 +278,18 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
   keyboardView: {
     flex: 1,
   },
+  header: {
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: isDark ? '#333333' : '#eeeeee',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: isDark ? '#ffffff' : '#333333',
+    textAlign: 'center',
+  },
   content: {
     flex: 1,
     justifyContent: 'center',
