@@ -6,7 +6,7 @@ import os
 import logging
 import re
 from pathlib import Path
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional, Dict
 import uuid
 from datetime import datetime
@@ -56,85 +56,59 @@ def normalize_phone_number(phone: str) -> str:
     return f"+7 {digits[:3]} {digits[3:6]} {digits[6:8]} {digits[8:10]}"
 
 # Pydantic models
-class PyObjectId(ObjectId):
-    @classmethod
-    def __get_validators__(cls):
-        yield cls.validate
-
-    @classmethod
-    def validate(cls, v):
-        if not ObjectId.is_valid(v):
-            raise ValueError("Invalid objectid")
-        return ObjectId(v)
-
-    @classmethod
-    def __get_pydantic_json_schema__(cls, field_schema):
-        field_schema.update(type="string")
-        return field_schema
-
 class Operator(BaseModel):
-    id: Optional[PyObjectId] = Field(default_factory=PyObjectId, alias="_id")
+    id: Optional[str] = Field(default=None, alias="_id")
     name: str
     logo_base64: Optional[str] = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
-    class Config:
-        populate_by_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    model_config = {"populate_by_name": True}
 
 class OperatorCreate(BaseModel):
     name: str
     logo_base64: Optional[str] = None
 
 class Service(BaseModel):
-    id: Optional[PyObjectId] = Field(default_factory=PyObjectId, alias="_id")
+    id: Optional[str] = Field(default=None, alias="_id")
     name: str
     logo_base64: Optional[str] = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
-    class Config:
-        populate_by_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    model_config = {"populate_by_name": True}
 
 class ServiceCreate(BaseModel):
     name: str
     logo_base64: Optional[str] = None
 
 class Phone(BaseModel):
-    id: Optional[PyObjectId] = Field(default_factory=PyObjectId, alias="_id")
+    id: Optional[str] = Field(default=None, alias="_id")
     number: str  # Normalized format +7 999 888 77 66
     operator_id: str
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
-    @validator('number')
+    @field_validator('number')
+    @classmethod
     def validate_number(cls, v):
         return normalize_phone_number(v)
 
-    class Config:
-        populate_by_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    model_config = {"populate_by_name": True}
 
 class PhoneCreate(BaseModel):
     number: str
     operator_id: str
 
-    @validator('number')
+    @field_validator('number')
+    @classmethod
     def validate_number(cls, v):
         return normalize_phone_number(v)
 
 class Usage(BaseModel):
-    id: Optional[PyObjectId] = Field(default_factory=PyObjectId, alias="_id")
+    id: Optional[str] = Field(default=None, alias="_id")
     phone_id: str
     service_id: str
     used_at: datetime = Field(default_factory=datetime.utcnow)
 
-    class Config:
-        populate_by_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    model_config = {"populate_by_name": True}
 
 class UsageCreate(BaseModel):
     phone_id: str
@@ -164,14 +138,17 @@ async def normalize_phone_endpoint(phone: str):
 # Operator endpoints
 @api_router.post("/operators", response_model=Operator)
 async def create_operator(operator: OperatorCreate):
-    operator_dict = operator.dict()
+    operator_dict = operator.model_dump()
     result = await db.operators.insert_one(operator_dict)
     created_operator = await db.operators.find_one({"_id": result.inserted_id})
+    created_operator["_id"] = str(created_operator["_id"])
     return Operator(**created_operator)
 
 @api_router.get("/operators", response_model=List[Operator])
 async def get_operators():
     operators = await db.operators.find().to_list(1000)
+    for op in operators:
+        op["_id"] = str(op["_id"])
     return [Operator(**op) for op in operators]
 
 @api_router.get("/operators/{operator_id}", response_model=Operator)
@@ -181,6 +158,7 @@ async def get_operator(operator_id: str):
     operator = await db.operators.find_one({"_id": ObjectId(operator_id)})
     if not operator:
         raise HTTPException(status_code=404, detail="Operator not found")
+    operator["_id"] = str(operator["_id"])
     return Operator(**operator)
 
 @api_router.put("/operators/{operator_id}", response_model=Operator)
@@ -188,7 +166,7 @@ async def update_operator(operator_id: str, operator: OperatorCreate):
     if not ObjectId.is_valid(operator_id):
         raise HTTPException(status_code=400, detail="Invalid operator ID")
     
-    update_data = operator.dict()
+    update_data = operator.model_dump()
     result = await db.operators.update_one(
         {"_id": ObjectId(operator_id)}, 
         {"$set": update_data}
@@ -197,6 +175,7 @@ async def update_operator(operator_id: str, operator: OperatorCreate):
         raise HTTPException(status_code=404, detail="Operator not found")
     
     updated_operator = await db.operators.find_one({"_id": ObjectId(operator_id)})
+    updated_operator["_id"] = str(updated_operator["_id"])
     return Operator(**updated_operator)
 
 @api_router.delete("/operators/{operator_id}")
@@ -213,14 +192,17 @@ async def delete_operator(operator_id: str):
 # Service endpoints
 @api_router.post("/services", response_model=Service)
 async def create_service(service: ServiceCreate):
-    service_dict = service.dict()
+    service_dict = service.model_dump()
     result = await db.services.insert_one(service_dict)
     created_service = await db.services.find_one({"_id": result.inserted_id})
+    created_service["_id"] = str(created_service["_id"])
     return Service(**created_service)
 
 @api_router.get("/services", response_model=List[Service])
 async def get_services():
     services = await db.services.find().to_list(1000)
+    for svc in services:
+        svc["_id"] = str(svc["_id"])
     return [Service(**svc) for svc in services]
 
 @api_router.get("/services/{service_id}", response_model=Service)
@@ -230,6 +212,7 @@ async def get_service(service_id: str):
     service = await db.services.find_one({"_id": ObjectId(service_id)})
     if not service:
         raise HTTPException(status_code=404, detail="Service not found")
+    service["_id"] = str(service["_id"])
     return Service(**service)
 
 @api_router.put("/services/{service_id}", response_model=Service)
@@ -237,7 +220,7 @@ async def update_service(service_id: str, service: ServiceCreate):
     if not ObjectId.is_valid(service_id):
         raise HTTPException(status_code=400, detail="Invalid service ID")
     
-    update_data = service.dict()
+    update_data = service.model_dump()
     result = await db.services.update_one(
         {"_id": ObjectId(service_id)}, 
         {"$set": update_data}
@@ -246,6 +229,7 @@ async def update_service(service_id: str, service: ServiceCreate):
         raise HTTPException(status_code=404, detail="Service not found")
     
     updated_service = await db.services.find_one({"_id": ObjectId(service_id)})
+    updated_service["_id"] = str(updated_service["_id"])
     return Service(**updated_service)
 
 @api_router.delete("/services/{service_id}")
@@ -275,14 +259,17 @@ async def create_phone(phone: PhoneCreate):
     if existing_phone:
         raise HTTPException(status_code=409, detail="Phone number already exists")
     
-    phone_dict = phone.dict()
+    phone_dict = phone.model_dump()
     result = await db.phones.insert_one(phone_dict)
     created_phone = await db.phones.find_one({"_id": result.inserted_id})
+    created_phone["_id"] = str(created_phone["_id"])
     return Phone(**created_phone)
 
 @api_router.get("/phones", response_model=List[Phone])
 async def get_phones():
     phones = await db.phones.find().to_list(1000)
+    for phone in phones:
+        phone["_id"] = str(phone["_id"])
     return [Phone(**phone) for phone in phones]
 
 @api_router.get("/phones/{phone_id}", response_model=Phone)
@@ -292,6 +279,7 @@ async def get_phone(phone_id: str):
     phone = await db.phones.find_one({"_id": ObjectId(phone_id)})
     if not phone:
         raise HTTPException(status_code=404, detail="Phone not found")
+    phone["_id"] = str(phone["_id"])
     return Phone(**phone)
 
 @api_router.put("/phones/{phone_id}", response_model=Phone)
@@ -307,7 +295,7 @@ async def update_phone(phone_id: str, phone: PhoneCreate):
     if not operator:
         raise HTTPException(status_code=404, detail="Operator not found")
     
-    update_data = phone.dict()
+    update_data = phone.model_dump()
     result = await db.phones.update_one(
         {"_id": ObjectId(phone_id)}, 
         {"$set": update_data}
@@ -316,6 +304,7 @@ async def update_phone(phone_id: str, phone: PhoneCreate):
         raise HTTPException(status_code=404, detail="Phone not found")
     
     updated_phone = await db.phones.find_one({"_id": ObjectId(phone_id)})
+    updated_phone["_id"] = str(updated_phone["_id"])
     return Phone(**updated_phone)
 
 @api_router.delete("/phones/{phone_id}")
@@ -354,14 +343,17 @@ async def create_usage(usage: UsageCreate):
     if existing_usage:
         raise HTTPException(status_code=409, detail="Usage already recorded")
     
-    usage_dict = usage.dict()
+    usage_dict = usage.model_dump()
     result = await db.usage.insert_one(usage_dict)
     created_usage = await db.usage.find_one({"_id": result.inserted_id})
+    created_usage["_id"] = str(created_usage["_id"])
     return Usage(**created_usage)
 
 @api_router.get("/usage", response_model=List[Usage])
 async def get_usage():
     usage_records = await db.usage.find().to_list(1000)
+    for usage in usage_records:
+        usage["_id"] = str(usage["_id"])
     return [Usage(**usage) for usage in usage_records]
 
 @api_router.delete("/usage/{usage_id}")
@@ -380,10 +372,14 @@ async def delete_usage(usage_id: str):
 async def search(q: str = Query(..., min_length=1)):
     results = []
     
+    # Escape special regex characters in the query
+    escaped_q = re.escape(q)
+    
     # Search phones by normalized number
     try:
         normalized_query = normalize_phone_number(q)
-        phones = await db.phones.find({"number": {"$regex": normalized_query, "$options": "i"}}).to_list(10)
+        escaped_normalized = re.escape(normalized_query)
+        phones = await db.phones.find({"number": {"$regex": escaped_normalized, "$options": "i"}}).to_list(10)
         for phone in phones:
             results.append(SearchResult(
                 type="phone",
@@ -392,7 +388,7 @@ async def search(q: str = Query(..., min_length=1)):
             ))
     except ValueError:
         # Not a valid phone number, search phones by partial match
-        phones = await db.phones.find({"number": {"$regex": q, "$options": "i"}}).to_list(10)
+        phones = await db.phones.find({"number": {"$regex": escaped_q, "$options": "i"}}).to_list(10)
         for phone in phones:
             results.append(SearchResult(
                 type="phone", 
@@ -401,7 +397,7 @@ async def search(q: str = Query(..., min_length=1)):
             ))
     
     # Search services by name
-    services = await db.services.find({"name": {"$regex": q, "$options": "i"}}).to_list(10)
+    services = await db.services.find({"name": {"$regex": escaped_q, "$options": "i"}}).to_list(10)
     for service in services:
         results.append(SearchResult(
             type="service",
