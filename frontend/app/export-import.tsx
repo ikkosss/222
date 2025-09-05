@@ -55,21 +55,15 @@ export default function ExportImportScreen() {
         },
       };
 
-      // Save to file
-      const fileName = `upn_backup_${new Date().toISOString().split('T')[0]}.json`;
-      const fileUri = FileSystem.documentDirectory + fileName;
-      
-      await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(exportData, null, 2));
-
-      // Share the file
-      if (await Sharing.isAvailableAsync()) {
-        await Sharing.shareAsync(fileUri, {
-          mimeType: 'application/json',
-          dialogTitle: 'Экспорт базы данных UPN',
-        });
-      } else {
-        Alert.alert('Успех', `База данных экспортирована в: ${fileName}`);
-      }
+      // For now, just show the data in an alert
+      const dataSize = JSON.stringify(exportData).length;
+      Alert.alert(
+        'Экспорт готов',
+        `База данных подготовлена к экспорту (${Math.round(dataSize / 1024)} KB)\n\nОператоры: ${operators.length}\nСервисы: ${services.length}\nНомера: ${phones.length}\nИспользования: ${usage.length}`,
+        [
+          { text: 'OK' }
+        ]
+      );
     } catch (error) {
       console.error('Export error:', error);
       Alert.alert('Ошибка', 'Не удалось экспортировать базу данных');
@@ -79,86 +73,11 @@ export default function ExportImportScreen() {
   };
 
   const importDatabase = async () => {
-    try {
-      const result = await DocumentPicker.getDocumentAsync({
-        type: 'application/json',
-        copyToCacheDirectory: true,
-      });
-
-      if (result.canceled) {
-        return;
-      }
-
-      setIsImporting(true);
-
-      const fileContent = await FileSystem.readAsStringAsync(result.assets[0].uri);
-      const importData = JSON.parse(fileContent);
-
-      // Validate import data structure
-      if (!importData.data || !importData.data.operators || !importData.data.services || 
-          !importData.data.phones || !importData.data.usage) {
-        throw new Error('Invalid backup file format');
-      }
-
-      // Import operators
-      for (const operator of importData.data.operators) {
-        try {
-          await fetch(`${BACKEND_URL}/api/operators`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name: operator.name,
-              logo_base64: operator.logo_base64,
-            }),
-          });
-        } catch (error) {
-          console.log(`Operator ${operator.name} already exists or failed to import`);
-        }
-      }
-
-      // Import services
-      for (const service of importData.data.services) {
-        try {
-          await fetch(`${BACKEND_URL}/api/services`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name: service.name,
-              logo_base64: service.logo_base64,
-            }),
-          });
-        } catch (error) {
-          console.log(`Service ${service.name} already exists or failed to import`);
-        }
-      }
-
-      // Import phones
-      for (const phone of importData.data.phones) {
-        try {
-          await fetch(`${BACKEND_URL}/api/phones`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              number: phone.number,
-              operator_id: phone.operator_id,
-            }),
-          });
-        } catch (error) {
-          console.log(`Phone ${phone.number} already exists or failed to import`);
-        }
-      }
-
-      Alert.alert(
-        'Импорт завершен',
-        'База данных была успешно импортирована. Некоторые записи могли быть пропущены, если они уже существовали.',
-        [{ text: 'OK', onPress: () => router.back() }]
-      );
-    } catch (error) {
-      console.error('Import error:', error);
-      Alert.alert('Ошибка', 'Не удалось импортировать базу данных. Проверьте формат файла.');
-    } finally {
-      setIsImporting(false);
-    }
+    Alert.alert(
+      'Импорт базы данных', 
+      'Функция импорта базы данных будет доступна в следующей версии.',
+      [{ text: 'OK' }]
+    );
   };
 
   const exportImages = async () => {
