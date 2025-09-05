@@ -69,7 +69,7 @@ export default function FloatingNavigation({ currentScreen }: FloatingNavigation
           onPress={() => navigateToScreen('services')}
           activeOpacity={0.8}
         >
-          <Text style={getTextStyle('services')}>УСЛУГА</Text>
+          <Text style={getTextStyle('services')}>МЕСТА</Text>
         </TouchableOpacity>
       </View>
     </View>
