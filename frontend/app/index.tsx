@@ -188,6 +188,11 @@ export default function MainScreen() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}
       >
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.title}>ПОИСК</Text>
+        </View>
+
         <View style={styles.content}>
           {/* Search Results */}
           {searchResults.length > 0 && (
