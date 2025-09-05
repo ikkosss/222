@@ -282,14 +282,14 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
   },
   searchContainer: {
     position: 'absolute',
-    width: '70%',
+    width: '95%',
     alignSelf: 'center',
   },
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: isDark ? '#333333' : '#f5f5f5',
-    borderRadius: 24,
+    borderRadius: 0,
     paddingHorizontal: 16,
     paddingVertical: 12,
     height: 56,
