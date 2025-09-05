@@ -275,11 +275,14 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
   },
   content: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 16,
-    paddingTop: 16,
   },
   searchContainer: {
-    marginBottom: 16,
+    position: 'absolute',
+    width: '70%',
+    alignSelf: 'center',
   },
   searchBar: {
     flexDirection: 'row',
