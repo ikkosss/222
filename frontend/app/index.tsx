@@ -352,39 +352,14 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
     color: isDark ? '#ffffff' : '#333333',
   },
   loadingContainer: {
-    padding: 20,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: [{ translateX: -50 }, { translateY: -50 }],
     alignItems: 'center',
   },
   loadingText: {
     fontSize: 16,
     color: isDark ? '#ffffff' : '#333333',
-  },
-  welcomeContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 32,
-  },
-  welcomeIcon: {
-    marginBottom: 24,
-  },
-  welcomeTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: isDark ? '#ffffff' : '#333333',
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  welcomeSubtitle: {
-    fontSize: 16,
-    color: isDark ? '#cccccc' : '#666666',
-    textAlign: 'center',
-    marginBottom: 16,
-    lineHeight: 22,
-  },
-  welcomeHint: {
-    fontSize: 14,
-    color: isDark ? '#888888' : '#999999',
-    textAlign: 'center',
   },
 });
