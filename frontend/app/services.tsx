@@ -139,7 +139,7 @@ export default function ServicesScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>ВСЕ СЕРВИСЫ</Text>
+        <Text style={styles.title}>ВСЕ МЕСТА</Text>
       </View>
 
       <View style={styles.content}>
