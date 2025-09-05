@@ -85,7 +85,7 @@ const createStyles = (isDark: boolean, insets: any) => StyleSheet.create({
     backgroundColor: isDark ? '#121212' : '#ffffff',
     borderTopWidth: 1,
     borderTopColor: isDark ? '#333333' : '#eeeeee',
-    paddingBottom: 0, // Убираем отступ - кнопки к самому низу экрана
+    paddingBottom: insets.bottom,
   },
   navContainer: {
     flexDirection: 'row',
