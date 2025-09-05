@@ -298,6 +298,7 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
   },
   searchIcon: {
     marginRight: 12,
+    marginTop: 10,
   },
   searchInput: {
     flex: 1,
