@@ -278,7 +278,7 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingBottom: 80, // Отступ для нижних кнопок
+    paddingBottom: 0, // Убираем отступ, который приподнимает навигацию
   },
   searchContainer: {
     position: 'absolute',
