@@ -304,6 +304,25 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
   clearButton: {
     marginLeft: 8,
   },
+  addButtonsContainer: {
+    marginTop: 20,
+    width: '100%',
+    gap: 12,
+  },
+  addButton: {
+    backgroundColor: isDark ? '#1e1e1e' : '#f8f8f8',
+    borderRadius: 12,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: isDark ? '#333333' : '#eeeeee',
+  },
+  addButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: isDark ? '#ffffff' : '#333333',
+  },
   resultsContainer: {
     position: 'absolute',
     top: 80, // Позиция под поисковой строкой
