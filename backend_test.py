@@ -431,7 +431,7 @@ class UPNAPITester:
             
             if response.status_code == 200:
                 usage = response.json()
-                usage_id = usage["id"]
+                usage_id = usage["_id"]  # Use _id instead of id
                 self.created_ids['usage'].append(usage_id)
                 self.log(f"✅ Created usage record (ID: {usage_id})")
             else:
