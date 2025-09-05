@@ -322,7 +322,7 @@ class UPNAPITester:
             
             if response.status_code == 200:
                 phone = response.json()
-                phone_id = phone["id"]
+                phone_id = phone["_id"]  # Use _id instead of id
                 self.created_ids['phones'].append(phone_id)
                 self.log(f"✅ Created phone: {phone['number']} (ID: {phone_id})")
                 
