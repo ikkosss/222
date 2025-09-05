@@ -282,7 +282,7 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
   },
   searchContainer: {
     position: 'absolute',
-    width: '95%',
+    width: '100%',
     alignSelf: 'center',
   },
   searchBar: {
