@@ -22,8 +22,12 @@ export default function RootLayout() {
         <Stack.Screen name="add-phone" />
         <Stack.Screen name="add-service" />
         <Stack.Screen name="add-operator" />
+        <Stack.Screen name="edit-phone/[id]" />
+        <Stack.Screen name="edit-service/[id]" />
         <Stack.Screen name="phone/[id]" />
         <Stack.Screen name="service/[id]" />
+        <Stack.Screen name="export-import" />
+        <Stack.Screen name="statistics" />
       </Stack>
       <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
     </SafeAreaProvider>
