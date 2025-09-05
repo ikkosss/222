@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, useColorScheme } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { View, TouchableOpacity, StyleSheet, Text, useColorScheme } from 'react-native';
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -36,11 +35,11 @@ export default function FloatingNavigation({ currentScreen }: FloatingNavigation
     ];
   };
 
-  const getIconColor = (screen: string) => {
-    if (currentScreen === screen) {
-      return '#ffffff';
-    }
-    return isDark ? '#ffffff' : '#333333';
+  const getTextStyle = (screen: string) => {
+    return [
+      styles.buttonText,
+      currentScreen === screen && styles.activeButtonText,
+    ];
   };
 
   return (
@@ -52,11 +51,7 @@ export default function FloatingNavigation({ currentScreen }: FloatingNavigation
           onPress={() => navigateToScreen('search')}
           activeOpacity={0.8}
         >
-          <Ionicons 
-            name="search" 
-            size={24} 
-            color={getIconColor('search')} 
-          />
+          <Text style={getTextStyle('search')}>ПОИСК</Text>
         </TouchableOpacity>
 
         {/* Phones Button */}
@@ -65,11 +60,7 @@ export default function FloatingNavigation({ currentScreen }: FloatingNavigation
           onPress={() => navigateToScreen('phones')}
           activeOpacity={0.8}
         >
-          <Ionicons 
-            name="call" 
-            size={24} 
-            color={getIconColor('phones')} 
-          />
+          <Text style={getTextStyle('phones')}>НОМЕРА</Text>
         </TouchableOpacity>
 
         {/* Services Button */}
@@ -78,11 +69,7 @@ export default function FloatingNavigation({ currentScreen }: FloatingNavigation
           onPress={() => navigateToScreen('services')}
           activeOpacity={0.8}
         >
-          <Ionicons 
-            name="heart" 
-            size={24} 
-            color={getIconColor('services')} 
-          />
+          <Text style={getTextStyle('services')}>УСЛУГА</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -92,32 +79,36 @@ export default function FloatingNavigation({ currentScreen }: FloatingNavigation
 const createStyles = (isDark: boolean, insets: any) => StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: insets.bottom + 20,
-    right: 20,
-    zIndex: 1000,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: isDark ? '#121212' : '#ffffff',
+    borderTopWidth: 1,
+    borderTopColor: isDark ? '#333333' : '#eeeeee',
+    paddingBottom: insets.bottom,
   },
   navContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: 12,
+    flexDirection: 'row',
+    height: 60,
   },
   navButton: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: isDark ? '#333333' : '#f0f0f0',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    backgroundColor: isDark ? '#1e1e1e' : '#f8f8f8',
+    borderRightWidth: 1,
+    borderRightColor: isDark ? '#333333' : '#eeeeee',
   },
   activeButton: {
     backgroundColor: '#007AFF',
+  },
+  buttonText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: isDark ? '#ffffff' : '#333333',
+    textAlign: 'center',
+  },
+  activeButtonText: {
+    color: '#ffffff',
   },
 });
