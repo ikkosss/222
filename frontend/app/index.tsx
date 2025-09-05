@@ -321,7 +321,7 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
     flex: 1,
     fontSize: 16,
     color: isDark ? '#ffffff' : '#333333',
-    height: 32,
+    height: 90,
   },
   clearButton: {
     marginLeft: 8,
