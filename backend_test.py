@@ -131,7 +131,7 @@ class UPNAPITester:
             
             if response.status_code == 200:
                 operator = response.json()
-                operator_id = operator["id"]
+                operator_id = operator["_id"]  # Use _id instead of id
                 self.created_ids['operators'].append(operator_id)
                 self.log(f"✅ Created operator: {operator['name']} (ID: {operator_id})")
             else:
