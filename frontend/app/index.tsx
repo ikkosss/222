@@ -290,9 +290,9 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
     alignItems: 'center',
     backgroundColor: isDark ? '#333333' : '#f5f5f5',
     borderRadius: 0,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    height: 44,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    height: 70,
   },
   searchIcon: {
     marginRight: 12,
