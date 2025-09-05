@@ -146,10 +146,15 @@ export default function MainScreen() {
 
   // Handle special search terms
   useEffect(() => {
-    if (searchText.toLowerCase() === 'база данных') {
+    const lowerSearchText = searchText.toLowerCase().trim();
+    if (lowerSearchText === 'база данных') {
+      setSearchResults([]);
       showDatabaseOptions();
-    } else if (searchText.toLowerCase() === 'изображения') {
+      setSearchText('');
+    } else if (lowerSearchText === 'изображения') {
+      setSearchResults([]);
       showImageOptions();
+      setSearchText('');
     }
   }, [searchText]);
 
@@ -159,8 +164,8 @@ export default function MainScreen() {
       'Выберите действие:',
       [
         { text: 'Отмена', style: 'cancel' },
-        { text: 'ЭКСПОРТ', onPress: () => exportDatabase() },
-        { text: 'ИМПОРТ', onPress: () => importDatabase() },
+        { text: 'ЭКСПОРТ', onPress: () => router.push('/export-import') },
+        { text: 'ИМПОРТ', onPress: () => router.push('/export-import') },
       ]
     );
   };
@@ -171,30 +176,10 @@ export default function MainScreen() {
       'Выберите действие:',
       [
         { text: 'Отмена', style: 'cancel' },
-        { text: 'ЭКСПОРТ', onPress: () => exportImages() },
-        { text: 'ИМПОРТ', onPress: () => importImages() },
+        { text: 'ЭКСПОРТ', onPress: () => router.push('/export-import') },
+        { text: 'ИМПОРТ', onPress: () => router.push('/export-import') },
       ]
     );
-  };
-
-  const exportDatabase = () => {
-    // TODO: Implement database export
-    Alert.alert('Экспорт', 'Функция экспорта базы данных будет реализована в следующих версиях');
-  };
-
-  const importDatabase = () => {
-    // TODO: Implement database import
-    Alert.alert('Импорт', 'Функция импорта базы данных будет реализована в следующих версиях');
-  };
-
-  const exportImages = () => {
-    // TODO: Implement image export
-    Alert.alert('Экспорт', 'Функция экспорта изображений будет реализована в следующих версиях');
-  };
-
-  const importImages = () => {
-    // TODO: Implement image import
-    Alert.alert('Импорт', 'Функция импорта изображений будет реализована в следующих версиях');
   };
 
   return (
