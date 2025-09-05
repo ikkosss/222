@@ -315,14 +315,14 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
     alignItems: 'center',
   },
   addLinkText: {
-    fontSize: 16,
+    fontSize: 14,
     color: isDark ? '#ffffff' : '#333333',
   },
   resultsContainer: {
     position: 'absolute',
     top: 80, // Позиция под поисковой строкой
-    left: '15%', // Центрировано как поле поиска
-    right: '15%',
+    left: '2.5%', // Центрировано как поле поиска 95%
+    right: '2.5%',
     bottom: 140, // Отступ от нижних кнопок (80 + 60)
     backgroundColor: isDark ? '#1e1e1e' : '#ffffff',
     borderRadius: 12,
