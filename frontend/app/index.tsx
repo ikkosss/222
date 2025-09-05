@@ -323,8 +323,8 @@ const createStyles = (isDark: boolean) => StyleSheet.create({
   resultsContainer: {
     position: 'absolute',
     top: 80, // Позиция под поисковой строкой
-    left: '2.5%', // Центрировано как поле поиска 95%
-    right: '2.5%',
+    left: 0, // Полная ширина как поле поиска 100%
+    right: 0,
     bottom: 140, // Отступ от нижних кнопок (80 + 60)
     backgroundColor: isDark ? '#1e1e1e' : '#ffffff',
     borderRadius: 12,
